@@ -7,7 +7,7 @@ describe('events', () => {
     return Server.init();
   });
 
-  /*it(`GET /events/warmupevents`, async () => {
+  it(`GET /events/warmupevents`, async () => {
     const response = await request(Server.getApp().app)
       .get('/events/warmupevents')
       .expect(200);
@@ -21,9 +21,9 @@ describe('events', () => {
     expect(result[0].name).toBe('Laravel convention ' + date1);
     expect(result[1].name).toBe('Laravel convention ' + date2);
     expect(result[2].name).toBe('React convention ' + date2);
-  });*/
+  });
 
-  /*it('GET /events/events', async () => {
+  it('GET /events/events', async () => {
     const date1 = format(subYears(new Date(), 1), 'yyyy');
     const date2 = format(addYears(new Date(), 1), 'yyyy');
 
@@ -50,7 +50,7 @@ describe('events', () => {
       '#NoClass pure functional programming',
     );
     expect(result[2].workshops[1].name).toBe('Navigating the function jungle');
-  });*/
+  });
 
   it('GET /events/futureevents', async () => {
     const date2 = format(addYears(new Date(), 1), 'yyyy');
