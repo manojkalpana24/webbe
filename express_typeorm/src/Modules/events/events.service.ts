@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { MoreThan, Repository, getManager, getConnection, DataSource, In } from 'typeorm';
 import { Event } from './entities/event.entity';
 import App from "../../app";
 import { Workshop } from './entities/workshop.entity';
@@ -7,8 +7,10 @@ import { Workshop } from './entities/workshop.entity';
 export class EventsService {
   private eventRepository: Repository<Event>;
   private workshopRepository: Repository<Workshop>;
+  private dataSource: DataSource;
 
   constructor(app: App) {
+    this.dataSource = app.getDataSource();
     this.eventRepository = app.getDataSource().getRepository(Event);
     this.workshopRepository = app.getDataSource().getRepository(Workshop);
   }
@@ -176,6 +178,31 @@ export class EventsService {
     ```
      */
   async getFutureEventWithWorkshops() {
-    throw new Error('TODO task 2');
+    const eventIdData = await this.dataSource.query(`
+      SELECT wso.eventId 
+      FROM event
+      JOIN workshop as wso ON wso.eventId = event.id 
+      AND wso.start == 
+      (SELECT start FROM workshop as wsi WHERE wsi.eventId = wso.eventId AND wsi.start > CURRENT_DATE ORDER BY wsi.id ASC LIMIT 0,1) 
+      GROUP BY wso.eventId
+    `);
+
+    let eventIds = eventIdData.map((event: { eventId: number; }) => event.eventId);
+
+    const events = await this.eventRepository.find({
+      relations: {
+        workshops: true,
+      },
+      order: {
+        workshops: {
+          id: "ASC"
+        }
+      },
+      where: {
+        id: In(eventIds)
+      }
+    });
+
+    return events;
   }
 }

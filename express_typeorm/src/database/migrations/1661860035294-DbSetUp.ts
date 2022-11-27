@@ -147,29 +147,29 @@ export class DbSetUp1661860035294 implements MigrationInterface {
       await queryRunner.query(
         `INSERT INTO \`workshop\` (\`id\`, \`start\`, \`end\`, \`eventId\`, \`name\`, \`createdAt\`) VALUES
           (1, '` +
-          setHoursAndFormat(time1, 10) +
+          '2021-10-21 10:00:00' +
           `', '` +
-          setHoursAndFormat(time1, 16) +
+          `2021-10-21 18:00:00` +
           `', 1, 'Illuminate your knowledge of the laravel code base', '2022-05-27 02:38:54'),
           (2, '` +
-          setHoursAndFormat(month21, 10) +
+          '2023-10-21 10:00:00' +
           `', '` +
-          setHoursAndFormat(month21, 16) +
+          `2023-10-21 18:00:00` +
           `', 2, 'The new Eloquent - load more with less', '2022-05-27 02:38:54'),
           (3, '` +
-          setHoursAndFormat(month22, 10) +
+          '2023-11-21 09:00:00' +
           `', '` +
-          setHoursAndFormat(month22, 17) +
+          '2023-11-21 17:00:00' +
           `', 2, 'AutoEx - handles exceptions 100% automatic', '2022-05-27 02:38:54'),
           (4, '` +
-          setHoursAndFormat(month23, 10) +
+          '2023-08-21 10:00:00' +
           `', '` +
-          setHoursAndFormat(month23, 18) +
+          '2023-08-21 18:00:00' +
           `', 3, '#NoClass pure functional programming', '2022-05-27 02:38:54'),
           (5, '` +
-          setHoursAndFormat(month24, 9) +
+          '2023-08-21 09:00:00' +
           `', '` +
-          setHoursAndFormat(month24, 17) +
+          '2023-08-21 17:00:00' +
           `', 3, 'Navigating the function jungle', '2022-05-27 02:38:54')`,
       );
     } catch (error) {
